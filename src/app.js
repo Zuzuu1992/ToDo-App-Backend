@@ -3,16 +3,29 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import connect from "./databases/mongo.js";
 import dotenv from "dotenv";
-import { getAllProject } from "./controllers/project-controller.js";
+import {
+  getAllTodos,
+  createTodo,
+  toggleTodo,
+  deleteTodo,
+  deleteCompletedTodos,
+} from "./controllers/project-controller.js";
+import swaggerMiddleware from "./middlewares/swagger-middleware.js";
+
 dotenv.config();
 connect();
 
 const app = express();
 
-app.get("/", (req, res) => {
-  return res.status(200).json({ message: "app works" });
-});
+app.use(bodyParser.json());
+app.use(cors());
 
-app.get("/api", getAllProject);
+app.get("/api/todo", getAllTodos);
+app.post("/api/todo", createTodo);
+app.put("/api/todo/:id", toggleTodo);
+app.delete("/api/deletecompleted", deleteCompletedTodos);
+app.delete("/api/todo/:id", deleteTodo);
 
-app.listen(3000);
+app.use("/", ...swaggerMiddleware());
+
+app.listen(process.env.PORT || 3001);

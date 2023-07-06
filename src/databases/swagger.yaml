@@ -1,0 +1,63 @@
+openapi: 3.0.0
+info:
+  title: Todo App
+  description: Todo App API
+  version: 0.1.9
+
+servers:
+  - url: http://localhost:3001/api
+    description: local server
+paths:
+  /todo:
+    get:
+      summary: Get all todos
+      responses:
+        "200":
+          description: OK
+    post:
+      summary: Create a new todo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                task:
+                  type: string
+                  description: The task for the todo
+                active:
+                  type: boolean
+                  description: The status of the todo
+      responses:
+        "200":
+          description: OK
+  /todo/{id}:
+    put:
+      summary: Toggle a todo
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+    delete:
+      summary: Delete a specific todo
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  /deletecompleted:
+    delete:
+      summary: Delete completed todos
+      responses:
+        "200":
+          description: OK

@@ -1,5 +1,4 @@
 import { Schema, model } from "mongoose";
-import { v4 as uuidv4 } from "uuid";
 
 const TodoSchema = new Schema({
   task: {
@@ -7,17 +6,16 @@ const TodoSchema = new Schema({
     required: true,
   },
   active: {
-    type: Schema.Types.String,
+    type: Schema.Types.Boolean,
     required: true,
   },
   id: {
     type: Schema.Types.String,
-    default: uuidv4,
     required: true,
     unique: true,
   },
 });
 
-const Todo = model("project", TodoSchema);
+const Todo = model("Todo", TodoSchema);
 
-export default Project;
+export default Todo;
