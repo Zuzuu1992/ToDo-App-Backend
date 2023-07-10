@@ -2,9 +2,12 @@ import Todo from "../models/Todo.js";
 import { v4 as uuidv4 } from "uuid";
 
 export const getAllTodos = async (req, res) => {
-  const data = await Todo.find();
-
-  return res.status(200).json(data);
+  try {
+    const data = await Todo.find();
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(500).json({ error: "Failed to get todos" });
+  }
 };
 
 //create new todo

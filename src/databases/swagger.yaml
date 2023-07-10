@@ -7,7 +7,7 @@ info:
 servers:
   - url: http://localhost:3001/api
     description: local server
-  - url: https://todo-app-backend-yqqa.onrender.com
+  - url: https://todo-app-backend-yqqa.onrender.com/api
     description: Web server
 paths:
   /todo:
